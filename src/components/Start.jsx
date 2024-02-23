@@ -9,8 +9,6 @@ export function Start(props) {
       >
         Start quiz
       </button>
-      <div className="blob-top"></div>
-      <div className="blob-bottom"></div>
     </div>
   );
 }
