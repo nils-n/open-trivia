@@ -16,10 +16,26 @@ function App() {
     //   .then((data) => setQuestions((prev) => data.results));
     const data = tempData;
     setQuestions(data);
-    console.log(data);
   }, []);
 
-  // console.log(questions);
+  // map the questions into an array used to display on the canvas
+  const allQuestions =
+    questionData?.results?.length > 0 &&
+    questionData?.results?.map((questions) => {
+      let tmpArray = questions.incorrect_answers;
+      tmpArray.push(questions.correct_answer);
+      return {
+        options: shuffleOrder(tmpArray),
+        correct_option: tmpArray.indexOf(questions.correct_answer),
+      };
+    });
+
+  function shuffleOrder(questionsArray) {
+    console.log("shuffle the order");
+    return questionsArray.sort(() => Math.random() - 0.5);
+  }
+
+  console.log(allQuestions);
 
   function toggleStart() {
     console.log("Start Button clicked");
