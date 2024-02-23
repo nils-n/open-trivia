@@ -5,17 +5,14 @@ import "./App.css";
 import { Start } from "./components/Start.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [startQuiz, setStartQuiz] = useState(false);
 
-  function startQuiz() {
+  function toggleStart() {
     console.log("Start Button clicked");
+    setStartQuiz(true);
   }
 
-  return (
-    <>
-      <Start startQuiz={startQuiz} />
-    </>
-  );
+  return <>{!startQuiz && <Start toggleStart={toggleStart} />}</>;
 }
 
 export default App;
