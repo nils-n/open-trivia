@@ -1,12 +1,12 @@
-export function Trivia() {
-  return (
-    <>
-      <h3>Question: </h3>
-      <p>
-        Answer Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-        Sapiente ab, a commodi et asperiores voluptate voluptatem enim
-        laudantium accusantium perspiciatis.{" "}
-      </p>
-    </>
-  );
+export function Trivia(props) {
+  console.log(props.allQuestions);
+
+  const questionsEl = props.allQuestions.map((questionData) => {
+    console.log(questionData);
+    return <h2> {questionData.question} </h2>;
+  });
+  console.log("we are in Trivia component now");
+  console.log(questionsEl);
+
+  return <>{questionsEl}</>;
 }

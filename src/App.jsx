@@ -22,9 +22,10 @@ function App() {
   const allQuestions =
     questionData?.results?.length > 0 &&
     questionData?.results?.map((questions) => {
-      let tmpArray = questions.incorrect_answers;
+      const tmpArray = questions.incorrect_answers;
       tmpArray.push(questions.correct_answer);
       return {
+        question: questions.question,
         options: shuffleOrder(tmpArray),
         correct_option: tmpArray.indexOf(questions.correct_answer),
       };
@@ -45,7 +46,7 @@ function App() {
   return (
     <>
       {!startQuiz && <Start toggleStart={toggleStart} />}
-      {startQuiz && <Trivia />}
+      {startQuiz && <Trivia allQuestions={allQuestions} />}
       <div className="blob-top"></div>
       <div className="blob-bottom"></div>
     </>
