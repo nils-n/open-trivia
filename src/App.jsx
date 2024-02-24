@@ -9,20 +9,26 @@ import { nanoid } from "nanoid";
 
 function App() {
   const [startQuiz, setStartQuiz] = useState(false);
-  const [questionData, setQuestionData] = useState([]);
+  const [questionData, setQuestionData] = useState(tempData);
 
   useEffect(() => {
-    // fetch("https://opentdb.com/api.php?amount=5&type=multiple")
-    //   .then((res) => res.json())
-    //   .then((data) => setQuestions((prev) => data.results));
-    const data = tempData;
-    setQuestionData(data);
+    console.log("calling the API");
+    fetch("https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.response_code == 0) {
+          setQuestionData((prev) => data.results);
+        } else {
+          console.log("API call unsuccessful. Using backup data.");
+          setQuestionData((prev) => tempData.results);
+        }
+      });
   }, []);
 
   // derive questions for the screen from the data
-  const allQuestions =
-    questionData?.results?.length > 0 &&
-    questionData.results.map((obj, ix) => {
+  let allQuestions =
+    questionData?.length > 0 &&
+    questionData.map((obj, ix) => {
       const tmpArray = obj.incorrect_answers.concat(obj.correct_answer);
       return {
         question: obj.question,
