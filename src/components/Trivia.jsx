@@ -14,6 +14,21 @@ export function Trivia(props) {
       };
     })
   );
+  const [showResults, setShowResults] = useState(false);
+
+  // check if the form is complete
+  const isCompleted = formData.every((question) => question.isSelected);
+  let resultsMessage = createResultMessage();
+
+  function createResultMessage() {
+    const numCorrectAnswers = formData.filter((question) =>
+      question.isCorrect ? true : false
+    ).length;
+    const successMessage = `You have ${numCorrectAnswers} / 5  correct answers`;
+    const incompleteMessage = `You need to select all answers`;
+
+    return isCompleted ? successMessage : incompleteMessage;
+  }
 
   // create JSX for the option
   const questionsEl = props.allQuestions.map((questionData) => {
@@ -48,6 +63,12 @@ export function Trivia(props) {
   function handleSubmit(e) {
     console.log("form submitted");
     e.preventDefault();
+    if (isCompleted) {
+      console.log("setting showResults to true now");
+      console.log("--> showResults", showResults);
+      setShowResults((prev) => true);
+      console.log("--> showResults", showResults);
+    }
   }
 
   function handleChange(e, idx, questionId) {
@@ -72,16 +93,17 @@ export function Trivia(props) {
       });
     });
   }
-
-  console.log("--> formData", formData);
-
+  console.log(`showResults`, showResults);
   return (
     <form
       onSubmit={handleSubmit}
       className="trivia--form"
     >
       {questionsEl}
-      <button className="btn trivia--btn">Check Answers</button>
+      <div className="trivia--results">
+        {showResults && <p> {resultsMessage}</p>}
+        <button className="btn trivia--btn">Check Answers</button>
+      </div>
     </form>
   );
 }

@@ -45,7 +45,15 @@ body {
 .trivia--btn {
   width: max-content;
   justify-self: center;
+}
+
+.trivia--results {
+  display: flex;
+  justify-self: center;
+  align-self: baseline;
   margin-top: 2em;
+  gap: 2em;
+  font-weight: bold;
 }
 
 .trivia--item {
