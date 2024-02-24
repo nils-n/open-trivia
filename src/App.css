@@ -61,7 +61,7 @@ body {
 .trivia--answers {
   display: flex;
   margin: 0;
-  padding: 0;
+  padding: 1em;
   list-style: none;
   gap: 1em;
   flex-wrap: wrap;
