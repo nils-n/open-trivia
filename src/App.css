@@ -95,3 +95,8 @@ body {
   background: #d6dbf5;
   border: none;
 }
+
+.trivia--green label {
+  background: #94d7a2 !important;
+  color: #293264 !important;
+}

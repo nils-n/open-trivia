@@ -30,6 +30,30 @@ export function Trivia(props) {
     return isCompleted ? successMessage : incompleteMessage;
   }
 
+  function getBackgroundColor(ix, questionData) {
+    const selectedOption = getSelectedOption(questionData.id);
+    let style = {
+      backgroundColor: "#F5F7FB",
+      border: "1px solid #4d5b9e",
+    };
+    if (ix === selectedOption && !showResults) {
+      style = { backgroundColor: "#D6DBF5", color: "#293264", border: "none" };
+    }
+    if (ix === selectedOption && showResults) {
+      style = { backgroundColor: "#F8BCBC", color: "#293264", border: "none" };
+    }
+    if (ix === questionData.correctOption && showResults) {
+      style = { backgroundColor: "#94d7a2", color: "#293264", border: "none" };
+    }
+
+    return style;
+  }
+
+  function getSelectedOption(questionId) {
+    const question = formData.filter((question) => question.id === questionId);
+    return question[0].selectedOption;
+  }
+
   // create JSX for the option
   const questionsEl = props.allQuestions.map((questionData) => {
     const options = questionData.options.map((option, ix) => {
@@ -42,7 +66,10 @@ export function Trivia(props) {
             value={decode(option)}
             onChange={(e) => handleChange(e, ix, questionData.id)}
           />
-          <label htmlFor={`${questionData.id}_option-${ix}`}>
+          <label
+            htmlFor={`${questionData.id}_option-${ix}`}
+            style={getBackgroundColor(ix, questionData)}
+          >
             {decode(option)}
           </label>
         </li>
@@ -63,37 +90,27 @@ export function Trivia(props) {
   function handleSubmit(e) {
     console.log("form submitted");
     e.preventDefault();
-    if (isCompleted) {
-      console.log("setting showResults to true now");
-      console.log("--> showResults", showResults);
-      setShowResults((prev) => true);
-      console.log("--> showResults", showResults);
-    }
+    setShowResults((prev) => true);
   }
 
   function handleChange(e, idx, questionId) {
     console.log("change detected", idx, questionId);
+    setShowResults((prev) => false);
 
     setFormData((prev) => {
       return prev.map((question) => {
-        const returnValue =
-          question.id === questionId
-            ? {
-                ...question,
-                selectedOption: idx,
-                isSelected: true,
-                isCorrect: idx === question.correctOption,
-              }
-            : question;
-        if (question.id === questionId) {
-          console.log("returnValue", returnValue);
-        }
-
-        return returnValue;
+        return question.id === questionId
+          ? {
+              ...question,
+              selectedOption: idx,
+              correctOption: question.correctOption,
+              isSelected: true,
+              isCorrect: idx === question.correctOption,
+            }
+          : question;
       });
     });
   }
-  console.log(`showResults`, showResults);
   return (
     <form
       onSubmit={handleSubmit}
