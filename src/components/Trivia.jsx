@@ -98,7 +98,7 @@ export function Trivia(props) {
     setShowResults((prev) => true);
   }
 
-  function returnToStart(e) {}
+  function restartGame(e) {}
 
   function handleChange(e, idx, questionId) {
     console.log("change detected", idx, questionId);
@@ -120,7 +120,7 @@ export function Trivia(props) {
   }
   return (
     <form
-      onSubmit={showResults ? returnToStart : handleSubmit}
+      onSubmit={showResults ? restartGame : handleSubmit}
       className="trivia--form"
     >
       {showResults}
