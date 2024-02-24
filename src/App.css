@@ -19,6 +19,7 @@ body {
   background-image: url(./assets/blob-1.png);
   background-position: center;
   background-repeat: no-repeat;
+  z-index: -1;
 }
 
 .blob-top {
@@ -30,4 +31,5 @@ body {
   background-image: url(./assets/blob-2.png);
   background-position: center;
   background-repeat: no-repeat;
+  z-index: -1;
 }
