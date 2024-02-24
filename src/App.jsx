@@ -10,6 +10,7 @@ import { nanoid } from "nanoid";
 function App() {
   const [startQuiz, setStartQuiz] = useState(false);
   const [questionData, setQuestionData] = useState(tempData);
+  const [resetQuiz, setResetQuiz] = useState(false);
 
   useEffect(() => {
     console.log("calling the API");
@@ -23,7 +24,7 @@ function App() {
           setQuestionData((prev) => tempData.results);
         }
       });
-  }, []);
+  }, [resetQuiz]);
 
   // derive questions for the screen from the data
   let allQuestions =
@@ -57,7 +58,12 @@ function App() {
   return (
     <>
       {!startQuiz && <Start toggleStart={toggleStart} />}
-      {startQuiz && <Trivia allQuestions={allQuestions} />}
+      {startQuiz && (
+        <Trivia
+          allQuestions={allQuestions}
+          resetQuiz={setResetQuiz}
+        />
+      )}
       <div className="blob-top"></div>
       <div className="blob-bottom"></div>
     </>

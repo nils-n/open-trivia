@@ -93,10 +93,12 @@ export function Trivia(props) {
   });
 
   function handleSubmit(e) {
-    console.log("form submitted");
+    console.log("form submitted. Show results --> ", showResults);
     e.preventDefault();
     setShowResults((prev) => true);
   }
+
+  function returnToStart(e) {}
 
   function handleChange(e, idx, questionId) {
     console.log("change detected", idx, questionId);
@@ -118,13 +120,17 @@ export function Trivia(props) {
   }
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={showResults ? returnToStart : handleSubmit}
       className="trivia--form"
     >
+      {showResults}
       {questionsEl}
       <div className="trivia--results">
         {showResults && <p> {resultsMessage}</p>}
-        <button className="btn trivia--btn">Check Answers</button>
+        <button className="btn trivia--btn">
+          {" "}
+          {showResults ? "New Game" : "Show Results"}
+        </button>
       </div>
       {showResults && allCorrect && <Confetti />}
     </form>
