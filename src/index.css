@@ -14,7 +14,7 @@
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   display: flex;
   place-items: center;
   min-width: 320px;
@@ -44,6 +44,7 @@ h2 {
   font-family: "Karla", sans-serif;
   color: #f5f7fb;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .start-container {
