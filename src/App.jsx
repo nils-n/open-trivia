@@ -27,7 +27,7 @@ function App() {
       return {
         question: obj.question,
         options: shuffleOrder(tmpArray),
-        correct_option: tmpArray.indexOf(obj.correct_answer),
+        correctOption: tmpArray.indexOf(obj.correct_answer),
         id: nanoid(),
       };
     });

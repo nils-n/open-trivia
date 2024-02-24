@@ -3,16 +3,20 @@ import { useState } from "react";
 
 export function Trivia(props) {
   // save form input in a state
-  const [formData, setFormData] = useState({
-    selectedAnswer_1: "",
-    selectedAnswer_2: "",
-    selectedAnswer_3: "",
-    selectedAnswer_4: "",
-    selectedAnswer_5: "",
-  });
+  const [formData, setFormData] = useState(
+    props.allQuestions.map((question) => {
+      return {
+        id: question.id,
+        selectedOption: null,
+        correctOption: question.correctOption,
+        isCorrect: false,
+        isSelected: false,
+      };
+    })
+  );
 
+  // create JSX for the option
   const questionsEl = props.allQuestions.map((questionData) => {
-    // create JSX for the option
     const options = questionData.options.map((option, ix) => {
       return (
         <li key={`${questionData.id}_option-${ix}`}>
@@ -48,7 +52,28 @@ export function Trivia(props) {
 
   function handleChange(e, idx, questionId) {
     console.log("change detected", idx, questionId);
+
+    setFormData((prev) => {
+      return prev.map((question) => {
+        const returnValue =
+          question.id === questionId
+            ? {
+                ...question,
+                selectedOption: idx,
+                isSelected: true,
+                isCorrect: idx === question.correctOption,
+              }
+            : question;
+        if (question.id === questionId) {
+          console.log("returnValue", returnValue);
+        }
+
+        return returnValue;
+      });
+    });
   }
+
+  console.log("--> formData", formData);
 
   return (
     <form
