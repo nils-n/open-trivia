@@ -1,5 +1,6 @@
 import { decode } from "html-entities";
 import { useState } from "react";
+import Confetti from "react-confetti";
 
 export function Trivia(props) {
   // save form input in a state
@@ -15,6 +16,10 @@ export function Trivia(props) {
     })
   );
   const [showResults, setShowResults] = useState(false);
+
+  const allCorrect =
+    formData.filter((question) => (question.isCorrect ? true : false)).length ==
+    5;
 
   // check if the form is complete
   const isCompleted = formData.every((question) => question.isSelected);
@@ -121,6 +126,7 @@ export function Trivia(props) {
         {showResults && <p> {resultsMessage}</p>}
         <button className="btn trivia--btn">Check Answers</button>
       </div>
+      {showResults && allCorrect && <Confetti />}
     </form>
   );
 }
