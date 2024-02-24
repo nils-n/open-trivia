@@ -33,3 +33,8 @@ body {
   background-repeat: no-repeat;
   z-index: -1;
 }
+
+/* Trivia Component*/
+.trivia--item {
+  border-bottom: 2px solid #dbdef0;
+}
