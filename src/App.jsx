@@ -5,38 +5,43 @@ import "./App.css";
 import { Start } from "./components/Start.jsx";
 import { Trivia } from "./components/Trivia.jsx";
 import tempData from "./tempData.js";
+import { nanoid } from "nanoid";
 
 function App() {
   const [startQuiz, setStartQuiz] = useState(false);
-  const [questionData, setQuestions] = useState([]);
+  const [questionData, setQuestionData] = useState([]);
 
   useEffect(() => {
     // fetch("https://opentdb.com/api.php?amount=5&type=multiple")
     //   .then((res) => res.json())
     //   .then((data) => setQuestions((prev) => data.results));
     const data = tempData;
-    setQuestions(data);
+    setQuestionData(data);
   }, []);
 
-  // map the questions into an array used to display on the canvas
+  // derive questions for the screen from the data
   const allQuestions =
     questionData?.results?.length > 0 &&
-    questionData?.results?.map((questions) => {
-      const tmpArray = questions.incorrect_answers;
-      tmpArray.push(questions.correct_answer);
+    questionData.results.map((obj, ix) => {
+      const tmpArray = obj.incorrect_answers.concat(obj.correct_answer);
       return {
-        question: questions.question,
+        question: obj.question,
         options: shuffleOrder(tmpArray),
-        correct_option: tmpArray.indexOf(questions.correct_answer),
+        correct_option: tmpArray.indexOf(obj.correct_answer),
+        id: nanoid(),
       };
     });
 
   function shuffleOrder(questionsArray) {
-    console.log("shuffle the order");
-    return questionsArray.sort(() => Math.random() - 0.5);
+    for (let i = questionsArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [questionsArray[i], questionsArray[j]] = [
+        questionsArray[j],
+        questionsArray[i],
+      ];
+    }
+    return questionsArray;
   }
-
-  console.log(allQuestions);
 
   function toggleStart() {
     console.log("Start Button clicked");

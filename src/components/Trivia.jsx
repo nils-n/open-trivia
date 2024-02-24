@@ -1,14 +1,20 @@
 import { decode } from "html-entities";
 
 export function Trivia(props) {
-  console.log(props.allQuestions);
-
   const questionsEl = props.allQuestions.map((questionData) => {
-    console.log(questionData);
-    return <h2> {decode(questionData.question)} </h2>;
+    return (
+      <div
+        className="trivia--item"
+        key={questionData.id}
+      >
+        <h2 className="trivia--question"> {decode(questionData.question)} </h2>
+        <p className="trivia--option"> {decode(questionData.options[0])} </p>
+        <p className="trivia--option"> {decode(questionData.options[1])} </p>
+        <p className="trivia--option"> {decode(questionData.options[2])} </p>
+        <p className="trivia--option"> {decode(questionData.options[3])} </p>
+      </div>
+    );
   });
-  console.log("we are in Trivia component now");
-  console.log(questionsEl);
 
   return <>{questionsEl}</>;
 }
