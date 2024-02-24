@@ -37,4 +37,30 @@ body {
 /* Trivia Component*/
 .trivia--item {
   border-bottom: 2px solid #dbdef0;
+  padding: 1em 0 1em;
+}
+
+.trivia--question {
+  font-weight: bold;
+  margin: 0.5em 0 0.5em;
+  padding-bottom: 0;
+}
+
+.trivia--answers {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 1em;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+
+.trivia--option {
+  border: 0.8px solid #4d5b9e;
+  padding: 0.5em 1.2em;
+  border-radius: 15px;
+  min-width: 50px;
+  text-align: center;
+  font-weight: 600;
 }

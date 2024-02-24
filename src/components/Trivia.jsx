@@ -22,7 +22,7 @@ export function Trivia(props) {
         key={questionData.id}
       >
         <h2 className="trivia--question"> {decode(questionData.question)} </h2>
-        <ul>{options}</ul>
+        <ul className="trivia--answers">{options}</ul>
       </div>
     );
   });
